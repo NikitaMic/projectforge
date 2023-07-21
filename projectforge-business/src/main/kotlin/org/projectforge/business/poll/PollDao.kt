@@ -52,7 +52,7 @@ open class PollDao : BaseDao<PollDO>(PollDO::class.java) {
 
         if (obj == null && operationType == OperationType.SELECT) {
             return true
-        };
+        }
         if (obj != null && operationType == OperationType.SELECT) {
             if (hasFullAccess(obj) || isAttendee(obj, ThreadLocalUserContext.user?.id!!))
                 return true

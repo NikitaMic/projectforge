@@ -76,7 +76,7 @@ class PollMailService {
 
     fun getAllMails(poll: Poll): List<String> {
         val attendees = poll.attendees
-        var fullAccessUser = poll.fullAccessUsers?.toMutableList() ?: mutableListOf()
+        val fullAccessUser = poll.fullAccessUsers?.toMutableList() ?: mutableListOf()
         val accessGroupIds = poll.fullAccessGroups?.filter { it.id != null }?.map { it.id!! }?.toIntArray()
         val accessUserIds = UserService().getUserIds(groupService.getGroupUsers(accessGroupIds))
         val accessUsers = User.toUserList(accessUserIds)
@@ -87,7 +87,7 @@ class PollMailService {
             }
         }
 
-        var owner = User.getUser(poll.owner?.id, false)
+        val owner = User.getUser(poll.owner?.id, false)
         if (owner != null) {
             fullAccessUser.add(owner)
         }

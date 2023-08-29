@@ -96,7 +96,6 @@ class PollResponsePageRest : AbstractDynamicPageRest() {
       answerTitle = translateMsg("poll.yourAnswers")
     }
 
-
     val pollDto = transformPollFromDB(pollData)
 
     if (pollData.id == null) {
@@ -129,7 +128,7 @@ class PollResponsePageRest : AbstractDynamicPageRest() {
       .add(UISpacer())
       .add(UISpacer())
 
-    if (!pollDto.isFinished() && ThreadLocalUserContext.userId === questionOwnerId) {
+    if (!pollDto.isFinished() && pollDao.hasFullAccess(pollData) && ThreadLocalUserContext.userId === questionOwnerId) {
       val fieldSetDelegationUser = UIFieldset(title = "poll.userDelegation")
       fieldSetDelegationUser.add(
         UIInput(
@@ -323,7 +322,7 @@ class PollResponsePageRest : AbstractDynamicPageRest() {
     if (joinedAttendeeIds.split(", ").any { it.toInt() == questionOwnerId }) {
       return ResponseEntity.ok(
         ResponseAction(
-          url = "/react/response/dynamic?pollId=${pollId}&questionOwner=${questionOwnerId}",
+          url = "/react/pollResponse/dynamic?pollId=${pollId}&questionOwner=${questionOwnerId}",
           targetType = TargetType.REDIRECT
         )
       )

@@ -29,6 +29,7 @@ import org.projectforge.business.poll.PollResponseDao
 import org.projectforge.business.user.service.UserService
 import org.projectforge.framework.i18n.translateMsg
 import org.projectforge.mail.MailAttachment
+import org.projectforge.rest.dto.PostData
 import org.projectforge.rest.poll.excel.ExcelExport
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -64,7 +65,7 @@ class PollCronJobs {
      * Cron job for daily stuff
      */
 
-    @Scheduled(cron = "0 5 0 * * *") // 00:05
+    @Scheduled(cron = "0 5 0 * * *") //Alle 12 Stunden
     fun dailyCronJobs() {
         log.info("Start daily cron jobs")
         cronDeletePolls()
